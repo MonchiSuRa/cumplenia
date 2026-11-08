@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Una sorpresa muy especial ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,400;1,600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- Confetti script con fallback -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Fondo animado con partículas flotantes -->
+  <div class="background-decorations">
+    <div class="bubble b1"></div>
+    <div class="bubble b2"></div>
+    <div class="bubble b3"></div>
+    <div class="bubble b4"></div>
+  </div>
+
+  <main class="app-container">
+
+    <!-- 1. PANTALLA DE INICIO -->
+    <section id="screen-start" class="card active">
+      <div class="badge-tag">Trivia Especial</div>
+      <h1 id="start-title" class="title">¡Hola! Tenemos un reto para ti ✨</h1>
+      <p id="start-desc" class="description">
+        Responde correctamente a estas preguntas para desbloquear una sorpresa que preparamos especialmente para ti.
+      </p>
+
+      <div class="feature-box">
+        <div class="feature-item">
+          <span class="icon">🎯</span>
+          <span>10 Preguntas</span>
+        </div>
+        <div class="feature-item">
+          <span class="icon">⭐</span>
+          <span>Aciértalas todas</span>
+        </div>
+        <div class="feature-item">
+          <span class="icon">🎁</span>
+          <span>Premio al final</span>
+        </div>
+      </div>
+
+      <button id="btn-start" class="btn btn-primary pulse">
+        <span>¡Comenzar el juego!</span> ➔
+      </button>
+    </section>
+
+
+    <!-- 2. PANTALLA DEL QUIZ -->
+    <section id="screen-quiz" class="card">
+      <header class="quiz-header">
+        <div class="progress-info">
+          <span id="question-indicator" class="step-text">Pregunta 1 de 10</span>
+          <span id="score-counter" class="score-pill">Aciertos: 0</span>
+        </div>
+        <div class="progress-bar-container">
+          <div id="progress-bar" class="progress-bar-fill"></div>
+        </div>
+      </header>
+
+      <div class="question-container">
+        <h2 id="question-text" class="question-title">Cargando pregunta...</h2>
+      </div>
+
+      <div id="options-container" class="options-grid">
+        <!-- Opciones generadas por JS -->
+      </div>
+
+      <div id="feedback-message" class="feedback-toast"></div>
+    </section>
+
+
+    <!-- 3. PANTALLA DE PREMIO DESBLOQUEADO -->
+    <section id="screen-prize" class="card">
+      <div class="sparkles-icon">✨ 🏆 ✨</div>
+      <h2 class="title congrats-title">¡Misión cumplida!</h2>
+      <p class="description">
+        ¡Increíble! Lograste responder correctamente a todas las preguntas. Has ganado tu derecho al premio mayor.
+      </p>
+
+      <!-- Regalo animado interactivo -->
+      <div class="gift-box-wrapper" id="gift-wrapper">
+        <div class="gift-box">
+          <div class="gift-lid"></div>
+          <div class="gift-ribbon-vertical"></div>
+          <div class="gift-ribbon-horizontal"></div>
+          <div class="gift-bow">🎀</div>
+        </div>
+        <div class="gift-shadow"></div>
+      </div>
+
+      <button id="btn-open-gift" class="btn btn-gift pulse">
+        <span id="btn-gift-text">🎁 ¡Reclamar premio y abrir regalo!</span>
+      </button>
+    </section>
+
+
+    <!-- 4. PANTALLAS DE CONFIRMACIÓN ("¿Estás segura?") -->
+    <section id="screen-confirm" class="card">
+      <div id="confirm-emoji" class="sparkles-icon">🤔</div>
+      <div class="badge-tag">Momento de la verdad</div>
+      <h2 id="confirm-title" class="title">¿Estás segura que quieres ver tu regalo?</h2>
+      <p id="confirm-subtitle" class="description">Una vez que lo veas no habrá marcha atrás...</p>
+      
+      <button id="btn-confirm-next" class="btn btn-primary pulse">
+        <span id="confirm-btn-text">¡Sí, estoy segurísima! ➔</span>
+      </button>
+    </section>
+
+
+    <!-- 5. PANTALLA DEL BOTÓN ESCURRIDIZO -->
+    <section id="screen-catch" class="card catch-card">
+      <div id="catch-emoji" class="sparkles-icon">🏃‍♂️💨</div>
+      <h2 id="catch-title" class="title">¡Veamos si realmente quieres ver tu sorpresa!</h2>
+      <p id="catch-subtitle" class="description">¡Atrápalo si de verdad lo quieres ver!</p>
+      <div id="catch-status" class="catch-status-pill">🏃‍♂️ ¡Se está moviendo! ¡Atenta!</div>
+
+      <!-- Arena donde se mueve el botón -->
+      <div class="catch-arena" id="catch-arena">
+        <button id="btn-moving-target" class="btn-moving">
+          <span id="catch-btn-text">🎁 ¡DAME MI REGALO!</span>
+        </button>
+      </div>
+    </section>
+
+
+    <!-- 6. PANTALLA / MODAL REVELACIÓN FINAL -->
+    <section id="screen-reveal" class="card reveal-card">
+      <div class="floating-hearts">💖 ✨ 🌸 ✨ 💖</div>
+      
+      <div class="letter-container">
+        <h1 id="reveal-title" class="reveal-question">¿Quieres ser mi madrina?</h1>
+        <p id="reveal-subtitle" class="reveal-subtitle">Sería el regalo más hermoso de mi vida.</p>
+
+        <div id="reveal-paragraphs" class="letter-body">
+          <!-- Párrafos inyectados por JS -->
+        </div>
+
+        <div class="dedication-box">
+          <span id="reveal-dedication">Con todo mi amor para ti.</span>
+        </div>
+      </div>
+
+      <div class="reveal-actions">
+        <button id="btn-accept" class="btn btn-celebrate">
+          <span>¡SÍ, ACEPTO CON TODO EL CORAZÓN! 🥂🎉</span>
+        </button>
+        <button id="btn-restart" class="btn btn-outline">
+          Volver a jugar ↺
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="questions.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
